@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pay Siva</title>
+<meta name="description" content="Bank and app details for paying Siva Ratnakar Immadi in CHF, INR or EUR.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#E8EAE6;
+    --card:#FDFDFC;
+    --ink:#1B2A24;
+    --muted:#6B7A72;
+    --line:#D5DAD5;
+    --chf:#B33A2E;
+    --inr:#B0711A;
+    --eur:#2F4E9E;
+    --accent:var(--ink);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font:400 16px/1.55 Inter,system-ui,-apple-system,sans-serif;
+    padding:28px 18px 64px;
+  }
+  .wrap{max-width:520px;margin:0 auto}
+
+  h1{
+    font:600 clamp(38px,13vw,58px)/0.95 Fraunces,Georgia,serif;
+    margin:0 0 10px;letter-spacing:-0.02em;
+  }
+  .lede{color:var(--muted);margin:0 0 26px;max-width:38ch}
+
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:30px}
+  .tile{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 8px 11px;text-align:center;cursor:pointer;color:inherit;
+    font-family:inherit;transition:border-color .15s,transform .15s;
+  }
+  .tile:active{transform:scale(.97)}
+  .tile .glyph{display:block;font:400 34px/1 Fraunces,Georgia,serif}
+  .tile .name{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+  .tile[data-c="chf"]{color:var(--chf)} .tile[data-c="inr"]{color:var(--inr)} .tile[data-c="eur"]{color:var(--eur)}
+
+  section{margin-bottom:26px;scroll-margin-top:16px}
+  h2{
+    font:600 13px/1 Inter,sans-serif;letter-spacing:.04em;color:var(--muted);
+    margin:0 0 10px;padding-left:2px;
+  }
+  section[data-c="chf"] h2 span{color:var(--chf)}
+  section[data-c="inr"] h2 span{color:var(--inr)}
+  section[data-c="eur"] h2 span{color:var(--eur)}
+
+  details{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    margin-bottom:8px;overflow:hidden;
+  }
+  summary{
+    list-style:none;cursor:pointer;padding:15px 16px;font-weight:500;
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::after{
+    content:"";width:8px;height:8px;flex:none;
+    border-right:1.8px solid var(--muted);border-bottom:1.8px solid var(--muted);
+    transform:rotate(45deg);margin-top:-4px;transition:transform .18s;
+  }
+  details[open] summary::after{transform:rotate(-135deg);margin-top:2px}
+  .body{padding:0 16px 8px}
+
+  .row{
+    width:100%;display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+    background:none;border:0;border-top:1px solid var(--line);
+    padding:11px 0;text-align:left;font-family:inherit;color:inherit;cursor:pointer;
+  }
+  .row .k{font-size:13px;color:var(--muted);flex:none}
+  .row .v{
+    font:500 14px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+    word-break:break-all;text-align:right;
+  }
+  .row.copied .v{color:#2E7D4F}
+  .plain{border-top:1px solid var(--line);padding:11px 0;font-size:14px;color:var(--muted)}
+
+  .links{display:grid;gap:10px}
+  .btn{
+    display:block;background:var(--ink);color:var(--card);text-decoration:none;
+    padding:15px 16px;border-radius:12px;font-weight:500;
+  }
+  .btn small{display:block;font-weight:400;opacity:.65;font-size:12px;margin-top:2px}
+  .btn:active{opacity:.85}
+
+  footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:14px;margin-top:34px}
+  :focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:4px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Pay Siva</h1>
+  <p class="lede">Pick the currency you're sending. Tap any line to copy it.</p>
+
+  <div class="tiles">
+    <button class="tile" data-c="chf" data-go="chf"><span class="glyph">₣</span><span class="name">Swiss francs</span></button>
+    <button class="tile" data-c="inr" data-go="inr"><span class="glyph">₹</span><span class="name">Rupees</span></button>
+    <button class="tile" data-c="eur" data-go="eur"><span class="glyph">€</span><span class="name">Euros</span></button>
+  </div>
+
+  <!-- CHF -->
+  <section id="chf" data-c="chf">
+    <h2><span>₣</span> Swiss francs</h2>
+
+    <details open>
+      <summary>Twint</summary>
+      <div class="body">
+        <button class="row"><span class="k">Phone</span><span class="v">+41 79 768 00 75</span></button>
+      </div>
+    </details>
+
+    <details>
+      <summary>Basler Kantonalbank transfer</summary>
+      <div class="body">
+        <button class="row"><span class="k">IBAN</span><span class="v">CH98 0077 0255 4046 6200 1</span></button>
+        <button class="row"><span class="k">Account</span><span class="v">2554.0466.2001</span></button>
+        <button class="row"><span class="k">SWIFT</span><span class="v">BKBBCHBB</span></button>
+        <button class="row"><span class="k">Clearing</span><span class="v">00770</span></button>
+        <button class="row"><span class="k">Branch</span><span class="v">0023</span></button>
+        <div class="plain">BKB Youth Account, Basler Kantonalbank, Basel</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- INR -->
+  <section id="inr" data-c="inr">
+    <h2><span>₹</span> Rupees</h2>
+
+    <details open>
+      <summary>UPI</summary>
+      <div class="body">
+        <button class="row"><span class="k">UPI ID</span><span class="v">9032704160@axl</span></button>
+      </div>
+    </details>
+
+    <details>
+      <summary>Axis Bank transfer</summary>
+      <div class="body">
+        <button class="row"><span class="k">Account</span><span class="v">921010016755423</span></button>
+        <button class="row"><span class="k">IFSC</span><span class="v">UTIB0001456</span></button>
+        <button class="row"><span class="k">MICR</span><span class="v">500211037</span></button>
+        <button class="row"><span class="k">SWIFT</span><span class="v">AXISINBB</span></button>
+        <div class="plain">Axis Bank, Diamond Point Circle, Sanjeevaiah Colony, Secunderabad, Hyderabad 500009</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- EUR -->
+  <section id="eur" data-c="eur">
+    <h2><span>€</span> Euros</h2>
+
+    <details open>
+      <summary>SEPA transfer</summary>
+      <div class="body">
+        <button class="row"><span class="k">Name</span><span class="v">Siva Ratnakar Immadi</span></button>
+        <button class="row"><span class="k">IBAN</span><span class="v">BE69 9678 3307 6378</span></button>
+        <button class="row"><span class="k">SWIFT</span><span class="v">TRWIBEB1XXX</span></button>
+        <div class="plain">Wise, Rue du Trône 100, 3rd floor, 1050 Brussels, Belgium</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- Links -->
+  <section id="links">
+    <h2>From anywhere</h2>
+    <div class="links">
+      <a class="btn" href="https://wise.com/pay/me/sivaratnakari">Send with Wise<small>wise.com/pay/me/sivaratnakari</small></a>
+      <a class="btn" href="https://revolut.me/sivara4qkc">Send with Revolut<small>revolut.me/sivara4qkc</small></a>
+    </div>
+  </section>
+
+  <footer>Tell me what you've sent so I can match it up.</footer>
+</div>
+
+<script>
+  document.querySelectorAll('.tile').forEach(function(t){
+    t.addEventListener('click', function(){
+      document.getElementById(t.dataset.go).scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  document.querySelectorAll('.row').forEach(function(r){
+    r.addEventListener('click', function(){
+      var v = r.querySelector('.v');
+      var text = v.textContent.replace(/\s+/g,' ').trim();
+      var done = function(){
+        var old = r.querySelector('.k').textContent;
+        r.classList.add('copied');
+        r.querySelector('.k').textContent = 'Copied';
+        setTimeout(function(){ r.classList.remove('copied'); r.querySelector('.k').textContent = old; }, 1400);
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done);
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); ta.remove(); done();
+      }
+    });
+  });
+</script>
+</body>
+</html>
